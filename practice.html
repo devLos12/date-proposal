@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Proposal</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fce4ec;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #d81b60;
+        }
+        .btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        #yes {
+            background-color: #43a047;
+            color: white;
+        }
+        #yes:hover {
+            background-color: #2e7d32;
+        }
+        #no {
+            background-color: #e53935;
+            color: white;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Will you be my date? 🥺👉👈</h1>
+        <button id="yes" class="btn" onclick="alert('Yay! See you on our date! 🥰')">Yes</button>
+        <button id="no" class="btn">No</button>
+    </div>
+
+    <script>
+        document.getElementById("no").addEventListener("mouseover", function() {
+            let x = Math.random() * (window.innerWidth - this.offsetWidth);
+            let y = Math.random() * (window.innerHeight - this.offsetHeight);
+            this.style.left = x + "px";
+            this.style.top = y + "px";
+        });
+    </script>
+</body>
+</html>
