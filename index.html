@@ -3,63 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Date Proposal</title>
+    <title>For You 💕</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #fce4ec;
-            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            overflow: hidden;
         }
+
+        /* Floating hearts */
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: float 8s infinite;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
         .container {
             text-align: center;
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 60px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
         }
+
         h1 {
-            color: #d81b60;
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 40px;
+            font-weight: 600;
         }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            min-height: 60px;
+        }
+
         .btn {
-            padding: 12px 25px;
+            padding: 15px 40px;
             font-size: 18px;
             border: none;
             cursor: pointer;
-            margin: 10px;
-            border-radius: 8px;
-            transition: 0.3s;
+            border-radius: 50px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
         }
+
         #yes {
-            background-color: #43a047;
+            background: #ff6b6b;
             color: white;
         }
+
         #yes:hover {
-            background-color: #2e7d32;
+            background: #ee5a52;
+            transform: scale(1.05);
         }
+
         #no {
-            background-color: #e53935;
-            color: white;
-            position: absolute;
+            background: #ddd;
+            color: #666;
+        }
+
+        #no.moving {
+            position: fixed;
+        }
+
+        /* Flower confetti */
+        .flower {
+            position: fixed;
+            font-size: 30px;
+            pointer-events: none;
+            animation: flower-fall 3s ease-out forwards;
+            z-index: 9999;
+        }
+
+        @keyframes flower-fall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Crying cat */
+        .crying-cat {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            pointer-events: none;
+            animation: cry-fade 3s ease-out forwards;
+            z-index: 9999;
+        }
+
+        @keyframes cry-fade {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            15% {
+                opacity: 1;
+                transform: scale(1.1) rotate(5deg);
+            }
+            85% {
+                opacity: 1;
+                transform: scale(1) rotate(-5deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3) rotate(0deg) translateY(30px);
+            }
+        }
+
+        .success {
+            display: none;
+        }
+
+        .success.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .success .cat-gif {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .success h2 {
+            font-size: 48px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .success p {
+            font-size: 20px;
+            color: #666;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 30px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            .btn {
+                font-size: 16px;
+                padding: 12px 30px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Will you be my date? 🥺👉👈</h1>
-        <button id="yes" class="btn" onclick="alert('Yay! See you on our date! 🥰')">Yes</button>
-        <button id="no" class="btn">No</button>
+        <div class="main-content">
+            <h1>Will you be my Valentine? 💕</h1>
+            <div class="buttons">
+                <button id="yes" class="btn">Yes</button>
+                <button id="no" class="btn">No</button>
+            </div>
+        </div>
+
+        <div class="success" id="success">
+            <img src="https://media.tenor.com/kkxWF2DrTRIAAAAi/cat-meme-elgatitolover.gif" alt="Cat with flowers" class="cat-gif">
+            <h2>🌸 Yay! 🌸</h2>
+            <p>I'm so happy! 💕</p>
+        </div>
     </div>
 
+    <!-- Audio elements -->
+    <audio id="sadAudio" preload="auto">
+        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_4a462a27d0.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="happyAudio" preload="auto">
+        <source src="https://cdn.pixabay.com/audio/2022/03/24/audio_c73399b3bd.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
-        document.getElementById("no").addEventListener("mouseover", function() {
-            let x = Math.random() * (window.innerWidth - this.offsetWidth);
-            let y = Math.random() * (window.innerHeight - this.offsetHeight);
+        let noButton = document.getElementById("no");
+        let yesButton = document.getElementById("yes");
+        let yesFontSize = 18;
+        let sadAudio = document.getElementById("sadAudio");
+        let happyAudio = document.getElementById("happyAudio");
+
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            const hearts = ['💕', '💖', '💗', '💓', '💝'];
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 10000);
+        }
+
+        setInterval(createHeart, 1000);
+
+        // Create crying cats - SLOW VERSION
+        function createCryingCats() {
+            const cryingCatGifs = [
+                'https://media.tenor.com/ikTQ-pi_GyMAAAAi/cat-cry-kitten-cry.gif',
+                'https://media.tenor.com/fC1YUbip_G0AAAAi/cry-snackcat.gif',
+                'https://media1.tenor.com/m/dgkEZcp7WDcAAAAd/sad-cry.gif',
+                'https://media1.tenor.com/m/FLBmfkn2QJ0AAAAC/im-good.gif',
+                'https://media.tenor.com/kHcmsxlKHEAAAAAi/sad-cat.gif'
+            ];
+
+            // Create 5 crying cats - slow and spread out
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const cat = document.createElement('img');
+                    cat.classList.add('crying-cat');
+                    cat.src = cryingCatGifs[Math.floor(Math.random() * cryingCatGifs.length)];
+                    cat.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+                    cat.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+                    document.body.appendChild(cat);
+                    
+                    setTimeout(() => cat.remove(), 3500);
+                }, i * 500); // 500ms delay between each cat - mas slow!
+            }
+        }
+
+        // Make No button run away
+        noButton.addEventListener("mouseover", function() {
+            // Add moving class to make it fixed position
+            this.classList.add('moving');
+            
+            // Play sad audio
+            sadAudio.currentTime = 0;
+            sadAudio.play().catch(e => console.log("Audio play prevented:", e));
+            
+            // Show crying cats slowly!
+            createCryingCats();
+            
+            // Make Yes button bigger
+            yesFontSize += 3;
+            yesButton.style.fontSize = yesFontSize + "px";
+            yesButton.style.padding = (15 + yesFontSize/3) + "px " + (40 + yesFontSize/2) + "px";
+            
+            // Move No button
+            let maxX = window.innerWidth - this.offsetWidth - 20;
+            let maxY = window.innerHeight - this.offsetHeight - 20;
+            
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
+            
             this.style.left = x + "px";
             this.style.top = y + "px";
+        });
+
+        // Mobile touch support
+        noButton.addEventListener("touchstart", function(e) {
+            e.preventDefault();
+            
+            // Add moving class
+            this.classList.add('moving');
+            
+            // Play sad audio
+            sadAudio.currentTime = 0;
+            sadAudio.play().catch(e => console.log("Audio play prevented:", e));
+            
+            // Show crying cats slowly!
+            createCryingCats();
+            
+            yesFontSize += 3;
+            yesButton.style.fontSize = yesFontSize + "px";
+            yesButton.style.padding = (15 + yesFontSize/3) + "px " + (40 + yesFontSize/2) + "px";
+            
+            let maxX = window.innerWidth - this.offsetWidth - 20;
+            let maxY = window.innerHeight - this.offsetHeight - 20;
+            
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
+            
+            this.style.left = x + "px";
+            this.style.top = y + "px";
+        });
+
+        // Create flower confetti
+        function createFlowers() {
+            const flowers = ['🌸', '🌺', '🌼', '🌻', '🌷', '🌹', '💐', '🏵️'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const flower = document.createElement('div');
+                    flower.classList.add('flower');
+                    flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+                    flower.style.left = Math.random() * 100 + 'vw';
+                    flower.style.top = '-50px';
+                    flower.style.animationDelay = Math.random() * 0.3 + 's';
+                    flower.style.animationDuration = (Math.random() * 1 + 2) + 's';
+                    document.body.appendChild(flower);
+                    
+                    setTimeout(() => flower.remove(), 3000);
+                }, i * 50);
+            }
+        }
+
+        // Yes button click
+        yesButton.addEventListener("click", function() {
+            // Stop sad audio and play happy audio
+            sadAudio.pause();
+            sadAudio.currentTime = 0;
+            happyAudio.currentTime = 0;
+            happyAudio.play().catch(e => console.log("Audio play prevented:", e));
+            
+            document.querySelector('.main-content').style.display = 'none';
+            document.getElementById('success').classList.add('show');
+            createFlowers();
+            
+            // Continue creating flowers
+            setTimeout(() => createFlowers(), 1500);
+            setTimeout(() => createFlowers(), 3000);
         });
     </script>
 </body>
