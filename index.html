@@ -131,8 +131,8 @@
             width: 100px;
             height: 100px;
             pointer-events: none;
-            animation: cry-fade 3s ease-out forwards;
-            z-index: 9999;
+            animation: cry-fade 4s ease-out forwards;
+            z-index: 5;
         }
 
         @keyframes cry-fade {
@@ -140,11 +140,11 @@
                 opacity: 0;
                 transform: scale(0) rotate(0deg);
             }
-            15% {
+            20% {
                 opacity: 1;
                 transform: scale(1.1) rotate(5deg);
             }
-            85% {
+            80% {
                 opacity: 1;
                 transform: scale(1) rotate(-5deg);
             }
@@ -218,20 +218,10 @@
         </div>
     </div>
 
-    <!-- Audio elements -->
-    <audio id="sadAudio" preload="auto">
-        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_4a462a27d0.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="happyAudio" preload="auto">
-        <source src="https://cdn.pixabay.com/audio/2022/03/24/audio_c73399b3bd.mp3" type="audio/mpeg">
-    </audio>
-
     <script>
         let noButton = document.getElementById("no");
         let yesButton = document.getElementById("yes");
         let yesFontSize = 18;
-        let sadAudio = document.getElementById("sadAudio");
-        let happyAudio = document.getElementById("happyAudio");
 
         // Create floating hearts
         function createHeart() {
@@ -259,7 +249,7 @@
                 'https://media.tenor.com/kHcmsxlKHEAAAAAi/sad-cat.gif'
             ];
 
-            // Create 5 crying cats - slow and spread out
+            // Create 5 crying cats - very slow and spread out
             for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
                     const cat = document.createElement('img');
@@ -269,8 +259,8 @@
                     cat.style.top = Math.random() * (window.innerHeight - 100) + 'px';
                     document.body.appendChild(cat);
                     
-                    setTimeout(() => cat.remove(), 3500);
-                }, i * 500); // 500ms delay between each cat - mas slow!
+                    setTimeout(() => cat.remove(), 4500);
+                }, i * 800); // 800ms delay between each cat - mas slow pa!
             }
         }
 
@@ -278,10 +268,6 @@
         noButton.addEventListener("mouseover", function() {
             // Add moving class to make it fixed position
             this.classList.add('moving');
-            
-            // Play sad audio
-            sadAudio.currentTime = 0;
-            sadAudio.play().catch(e => console.log("Audio play prevented:", e));
             
             // Show crying cats slowly!
             createCryingCats();
@@ -308,10 +294,6 @@
             
             // Add moving class
             this.classList.add('moving');
-            
-            // Play sad audio
-            sadAudio.currentTime = 0;
-            sadAudio.play().catch(e => console.log("Audio play prevented:", e));
             
             // Show crying cats slowly!
             createCryingCats();
@@ -352,12 +334,6 @@
 
         // Yes button click
         yesButton.addEventListener("click", function() {
-            // Stop sad audio and play happy audio
-            sadAudio.pause();
-            sadAudio.currentTime = 0;
-            happyAudio.currentTime = 0;
-            happyAudio.play().catch(e => console.log("Audio play prevented:", e));
-            
             document.querySelector('.main-content').style.display = 'none';
             document.getElementById('success').classList.add('show');
             createFlowers();
